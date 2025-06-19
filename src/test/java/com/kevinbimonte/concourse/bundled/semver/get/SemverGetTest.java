@@ -1,12 +1,12 @@
-package com.kevinbimonte.concourse.bundled.semver.get;
+package org.aviatorlabs.ci.bundled.semver.get;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.kevinbimonte.concourse.bundled.semver.GitDriverConfig;
-import com.kevinbimonte.concourse.bundled.semver.SemverBump;
-import com.kevinbimonte.concourse.bundled.semver.SemverResource;
+import org.aviatorlabs.ci.bundled.semver.GitDriverConfig;
+import org.aviatorlabs.ci.bundled.semver.SemverBump;
+import org.aviatorlabs.ci.bundled.semver.SemverResource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

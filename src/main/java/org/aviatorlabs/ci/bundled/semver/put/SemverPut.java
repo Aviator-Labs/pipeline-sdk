@@ -1,8 +1,8 @@
-package com.kevinbimonte.concourse.bundled.semver.put;
+package org.aviatorlabs.ci.bundled.semver.put;
 
-import com.kevinbimonte.concourse.bundled.semver.SemverResource;
-import com.kevinbimonte.concourse.sdk.resource.put.Put;
-import com.kevinbimonte.concourse.sdk.util.Validator;
+import org.aviatorlabs.ci.bundled.semver.SemverResource;
+import org.aviatorlabs.ci.sdk.resource.put.Put;
+import org.aviatorlabs.ci.sdk.util.Validator;
 
 public class SemverPut extends Put {
     private SemverPut(SemverResource resource) {

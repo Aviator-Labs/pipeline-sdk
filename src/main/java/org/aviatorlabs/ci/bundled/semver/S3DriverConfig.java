@@ -1,4 +1,4 @@
-package com.kevinbimonte.concourse.bundled.semver;
+package org.aviatorlabs.ci.bundled.semver;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -55,7 +55,7 @@ public class S3DriverConfig extends AbstractSemverDriverConfig<S3DriverConfig> {
     /**
      * Set basic credentials using Access Key and Secret Access Key.
      * <p>
-     * Note: Should use {@link com.kevinbimonte.concourse.sdk.variable.Variable#referenceVariable(String...)} to
+     * Note: Should use {@link org.aviatorlabs.ci.sdk.variable.Variable#referenceVariable(String...)} to
      * create the variable
      *
      * @param accessKeyId     The AWS access key to use when accessing the bucket

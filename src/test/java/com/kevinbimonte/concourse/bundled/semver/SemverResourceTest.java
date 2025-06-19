@@ -1,18 +1,18 @@
-package com.kevinbimonte.concourse.bundled.semver;
+package org.aviatorlabs.ci.bundled.semver;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.kevinbimonte.concourse.bundled.mock.MockConfig;
-import com.kevinbimonte.concourse.bundled.mock.MockResource;
-import com.kevinbimonte.concourse.bundled.semver.get.SemverGet;
-import com.kevinbimonte.concourse.bundled.semver.get.SemverGetConfig;
-import com.kevinbimonte.concourse.bundled.semver.put.SemverPut;
-import com.kevinbimonte.concourse.bundled.semver.put.SemverPutConfig;
-import com.kevinbimonte.concourse.sdk.Pipeline;
-import com.kevinbimonte.concourse.sdk.TestUtils;
-import com.kevinbimonte.concourse.sdk.job.Job;
-import com.kevinbimonte.concourse.sdk.step.task.Task;
-import com.kevinbimonte.concourse.sdk.variable.Variable;
+import org.aviatorlabs.ci.bundled.mock.MockConfig;
+import org.aviatorlabs.ci.bundled.mock.MockResource;
+import org.aviatorlabs.ci.bundled.semver.get.SemverGet;
+import org.aviatorlabs.ci.bundled.semver.get.SemverGetConfig;
+import org.aviatorlabs.ci.bundled.semver.put.SemverPut;
+import org.aviatorlabs.ci.bundled.semver.put.SemverPutConfig;
+import org.aviatorlabs.ci.sdk.Pipeline;
+import org.aviatorlabs.ci.sdk.TestUtils;
+import org.aviatorlabs.ci.sdk.job.Job;
+import org.aviatorlabs.ci.sdk.step.task.Task;
+import org.aviatorlabs.ci.sdk.variable.Variable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

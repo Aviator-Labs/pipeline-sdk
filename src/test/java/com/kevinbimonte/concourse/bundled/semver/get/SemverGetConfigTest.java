@@ -1,4 +1,4 @@
-package com.kevinbimonte.concourse.bundled.semver.get;
+package org.aviatorlabs.ci.bundled.semver.get;
 
 import static org.junit.jupiter.api.Assertions.*;
 

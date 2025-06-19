@@ -1,6 +1,6 @@
-package com.kevinbimonte.concourse.bundled.semver;
+package org.aviatorlabs.ci.bundled.semver;
 
-import com.kevinbimonte.concourse.sdk.ISerializableEnum;
+import org.aviatorlabs.ci.sdk.ISerializableEnum;
 import lombok.Getter;
 
 @Getter

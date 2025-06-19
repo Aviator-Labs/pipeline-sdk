@@ -1,8 +1,8 @@
-package com.kevinbimonte.concourse.bundled.semver;
+package org.aviatorlabs.ci.bundled.semver;
 
 import com.google.gson.annotations.SerializedName;
-import com.kevinbimonte.concourse.sdk.resource.IResourceConfig;
-import com.kevinbimonte.concourse.sdk.util.Validator;
+import org.aviatorlabs.ci.sdk.resource.IResourceConfig;
+import org.aviatorlabs.ci.sdk.util.Validator;
 
 public abstract class AbstractSemverDriverConfig<T> implements IResourceConfig {
 

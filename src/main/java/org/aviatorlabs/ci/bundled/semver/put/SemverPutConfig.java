@@ -1,8 +1,8 @@
-package com.kevinbimonte.concourse.bundled.semver.put;
+package org.aviatorlabs.ci.bundled.semver.put;
 
 import com.google.gson.annotations.SerializedName;
-import com.kevinbimonte.concourse.bundled.semver.SemverBump;
-import com.kevinbimonte.concourse.sdk.resource.put.IPutConfig;
+import org.aviatorlabs.ci.bundled.semver.SemverBump;
+import org.aviatorlabs.ci.sdk.resource.put.IPutConfig;
 import lombok.NonNull;
 
 public class SemverPutConfig implements IPutConfig {

@@ -1,4 +1,4 @@
-package com.kevinbimonte.concourse.bundled.semver;
+package org.aviatorlabs.ci.bundled.semver;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AccessLevel;
