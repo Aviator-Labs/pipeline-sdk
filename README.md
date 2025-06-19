@@ -25,7 +25,7 @@ To get started with developing type safe pipelines, add the following lines to y
 <!-- add Concourse Pipeline to Dependencies -->
 <dependencies>
     <dependency>
-        <groupId>com.kevinbimonte.concourse</groupId>
+        <groupId>org.aviatorlabs.ci</groupId>
         <artifactId>pipeline-sdk</artifactId>
         <version>0.0.1</version>
     </dependency>
