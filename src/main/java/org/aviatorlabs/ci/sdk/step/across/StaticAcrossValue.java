@@ -1,5 +1,7 @@
 package org.aviatorlabs.ci.sdk.step.across;
 
+import org.aviatorlabs.ci.sdk.step.var.LoadVar;
+
 public class StaticAcrossValue extends AbstractAcrossValue {
     private final String values;
 
@@ -9,7 +11,7 @@ public class StaticAcrossValue extends AbstractAcrossValue {
         this.values = values;
     }
 
-    public static StaticAcrossValue create(String name, String values) {
-        return new StaticAcrossValue(name, values);
+    public static StaticAcrossValue create(String name, LoadVar variable) {
+        return new StaticAcrossValue(name, variable.getLocalVariable());
     }
 }
