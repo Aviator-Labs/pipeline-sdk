@@ -2,8 +2,6 @@ package org.aviatorlabs.ci.sdk.resource;
 
 import com.google.gson.annotations.SerializedName;
 import org.aviatorlabs.ci.sdk.resource.get.Get;
-import org.aviatorlabs.ci.sdk.resource.get.NoOpGet;
-import org.aviatorlabs.ci.sdk.resource.put.NoOpPut;
 import org.aviatorlabs.ci.sdk.resource.put.Put;
 import org.aviatorlabs.ci.sdk.util.Validator;
 import lombok.Getter;
@@ -30,19 +28,19 @@ public abstract class Resource extends AbstractResource {
     }
 
     public Get createGetDefinition() {
-        return new NoOpGet(this);
+        throw new UnsupportedOperationException("Get is not implemented");
     }
 
     public Get createGetDefinition(String identifier) {
-        return new NoOpGet(this, identifier);
+        throw new UnsupportedOperationException("Get is not implemented");
     }
 
     public Put createPutDefinition() {
-        return new NoOpPut(this);
+        throw new UnsupportedOperationException("Put is not implemented");
     }
 
     public Put createPutDefinition(String identifier) {
-        return new NoOpPut(this, identifier);
+        throw new UnsupportedOperationException("Put is not implemented");
     }
 
     public Resource setIcon(String icon) {
