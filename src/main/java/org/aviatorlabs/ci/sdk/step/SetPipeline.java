@@ -3,6 +3,7 @@ package org.aviatorlabs.ci.sdk.step;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import org.aviatorlabs.ci.sdk.resource.get.Get;
+import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
 import org.aviatorlabs.ci.sdk.util.Validator;
 
 import java.util.LinkedHashSet;
@@ -25,7 +26,7 @@ public class SetPipeline extends AbstractAcrossStep<SetPipeline> implements ISte
     @SerializedName("instance_vars")
     private JsonObject instanceVars;
 
-    private SetPipeline(String name, String file, AcrossVariable variable) {
+    private SetPipeline(String name, String file, AbstractAcrossValue variable) {
         if (variable != null) {
             this.addAcrossVariable(variable);
         }
@@ -44,7 +45,7 @@ public class SetPipeline extends AbstractAcrossStep<SetPipeline> implements ISte
         return SetPipeline.createAcrossPipeline(name, repo, path, null);
     }
 
-    public static SetPipeline createAcrossPipeline(String name, String path, AcrossVariable variable) {
+    public static SetPipeline createAcrossPipeline(String name, String path, AbstractAcrossValue variable) {
         if (path != null && path.startsWith("/")) {
             path = path.trim().substring(1);
         }
@@ -52,7 +53,7 @@ public class SetPipeline extends AbstractAcrossStep<SetPipeline> implements ISte
         return new SetPipeline(name, path, variable);
     }
 
-    public static SetPipeline createAcrossPipeline(String name, Get repo, String path, AcrossVariable variable) {
+    public static SetPipeline createAcrossPipeline(String name, Get repo, String path, AbstractAcrossValue variable) {
         if (path != null && path.startsWith("/")) {
             path = path.trim().substring(1);
         }

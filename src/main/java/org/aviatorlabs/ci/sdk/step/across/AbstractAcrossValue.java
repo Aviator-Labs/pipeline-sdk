@@ -1,30 +1,21 @@
-package org.aviatorlabs.ci.sdk.step;
+package org.aviatorlabs.ci.sdk.step.across;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.annotations.SerializedName;
 import org.aviatorlabs.ci.sdk.util.Validator;
 
-import java.util.HashSet;
-import java.util.Set;
+public class AbstractAcrossValue {
 
-public class AcrossVariable {
     @SerializedName("var")
     private final String name;
-
-    private final Set<JsonElement> values = new HashSet<>();
 
     @SerializedName("max_in_flight")
     private JsonPrimitive maxInFlight;
 
-    private AcrossVariable(String name) {
+    protected AbstractAcrossValue(String name) {
         Validator.validateIdentifier(name);
 
         this.name = name;
-    }
-
-    public static AcrossVariable create(String name) {
-        return new AcrossVariable(name);
     }
 
     public String getVariable() {
@@ -41,23 +32,5 @@ public class AcrossVariable {
 
     public void runAll() {
         this.maxInFlight = new JsonPrimitive("all");
-    }
-
-    public AcrossVariable addValue(Integer value) {
-        this.values.add(new JsonPrimitive(value));
-
-        return this;
-    }
-
-    public AcrossVariable addValue(String value) {
-        this.values.add(new JsonPrimitive(value));
-
-        return this;
-    }
-
-    public AcrossVariable addValue(Boolean value) {
-        this.values.add(new JsonPrimitive(value));
-
-        return this;
     }
 }
