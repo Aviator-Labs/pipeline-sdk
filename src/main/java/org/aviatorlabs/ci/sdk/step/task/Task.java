@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import org.aviatorlabs.ci.sdk.resource.get.Get;
 import org.aviatorlabs.ci.sdk.step.AbstractAcrossStep;
-import org.aviatorlabs.ci.sdk.step.AcrossVariable;
 import org.aviatorlabs.ci.sdk.step.IStep;
+import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
 import org.aviatorlabs.ci.sdk.step.task.config.ContainerLimits;
 import org.aviatorlabs.ci.sdk.step.task.config.Output;
 import org.aviatorlabs.ci.sdk.step.task.config.TaskConfig;
@@ -40,7 +40,7 @@ public class Task extends AbstractAcrossStep<Task> implements IStep {
     @SerializedName("output_mapping")
     private Map<String, String> outputMapping;
 
-    private Task(String name, TaskConfig config, AcrossVariable variable) {
+    private Task(String name, TaskConfig config, AbstractAcrossValue variable) {
         if (variable != null) {
             this.addAcrossVariable(variable);
         }
@@ -51,7 +51,7 @@ public class Task extends AbstractAcrossStep<Task> implements IStep {
         this.config = config;
     }
 
-    private Task(String name, String file, AcrossVariable variable) {
+    private Task(String name, String file, AbstractAcrossValue variable) {
         if (variable != null) {
             this.addAcrossVariable(variable);
         }
@@ -76,7 +76,7 @@ public class Task extends AbstractAcrossStep<Task> implements IStep {
         return new Task(name, config, null);
     }
 
-    public static Task createAcrossTask(String name, TaskConfig config, AcrossVariable acrossVariable) {
+    public static Task createAcrossTask(String name, TaskConfig config, AbstractAcrossValue acrossVariable) {
         return new Task(name, config, acrossVariable);
     }
 
@@ -92,7 +92,7 @@ public class Task extends AbstractAcrossStep<Task> implements IStep {
         return Task.createAcrossTask(name, get, path, null);
     }
 
-    public static Task createAcrossTask(String name, Get get, String path, AcrossVariable acrossVariable) {
+    public static Task createAcrossTask(String name, Get get, String path, AbstractAcrossValue acrossVariable) {
         if (path == null) {
             throw new RuntimeException("Path cannot be null");
         }

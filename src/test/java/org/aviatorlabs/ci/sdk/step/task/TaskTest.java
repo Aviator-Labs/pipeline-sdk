@@ -14,7 +14,8 @@ import org.aviatorlabs.ci.sdk.Pipeline;
 import org.aviatorlabs.ci.sdk.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
-import org.aviatorlabs.ci.sdk.step.AcrossVariable;
+import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
+import org.aviatorlabs.ci.sdk.step.across.DynamicAcrossValue;
 import org.aviatorlabs.ci.sdk.step.task.config.Command;
 import org.aviatorlabs.ci.sdk.step.task.config.Output;
 import org.aviatorlabs.ci.sdk.step.task.config.Platform;
@@ -275,7 +276,7 @@ class TaskTest {
         Pipeline pipeline = new Pipeline();
         Job job = new Job("job");
 
-        AcrossVariable acrossVariable = AcrossVariable.create("some-text").addValue("hello-world").addValue("hello-concourse");
+        AbstractAcrossValue acrossVariable = DynamicAcrossValue.create("some-text").addValue("hello-world").addValue("hello-concourse");
 
         AnonymousResource<MockConfig> resource = AnonymousResource.create(MockResourceType.create(), MockConfig.create().mirrorSelf());
         TaskConfig config = TaskConfig.create(resource, Command.createCommand("echo").addArg(acrossVariable.getVariable()));

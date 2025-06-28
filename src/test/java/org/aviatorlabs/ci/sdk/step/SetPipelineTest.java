@@ -8,6 +8,8 @@ import org.aviatorlabs.ci.bundled.git.get.GitGet;
 import org.aviatorlabs.ci.sdk.Pipeline;
 import org.aviatorlabs.ci.sdk.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;
+import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
+import org.aviatorlabs.ci.sdk.step.across.DynamicAcrossValue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +27,7 @@ class SetPipelineTest {
         GitGet getDefinition = ci.createGetDefinition();
         job.addStep(getDefinition);
 
-        AcrossVariable variable = AcrossVariable.create("pipeline").addValue("hello-world").addValue("time-triggered");
+        AbstractAcrossValue variable = DynamicAcrossValue.create("pipeline").addValue("hello-world").addValue("time-triggered");
 
         String pipelineFile = String.format("pipelines/%s.yml", variable.getVariable());
         SetPipeline setPipeline = SetPipeline.createAcrossPipeline(variable.getVariable(), getDefinition, pipelineFile, variable);
@@ -44,7 +46,7 @@ class SetPipelineTest {
     @Test
     void failFastAcrossSteps() {
         // Arrange
-        AcrossVariable variable = AcrossVariable.create("pipeline").addValue("hello-world").addValue("time-triggered");
+        AbstractAcrossValue variable = DynamicAcrossValue.create("pipeline").addValue("hello-world").addValue("time-triggered");
 
         String pipelineFile = String.format("pipelines/%s.yml", variable.getVariable());
         SetPipeline setPipeline = SetPipeline.createAcrossPipeline(variable.getVariable(), pipelineFile, variable);

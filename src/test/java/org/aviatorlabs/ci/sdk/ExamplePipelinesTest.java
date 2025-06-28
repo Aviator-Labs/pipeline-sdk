@@ -18,7 +18,6 @@ import org.aviatorlabs.ci.sdk.resource.get.Get;
 import org.aviatorlabs.ci.sdk.step.SetPipeline;
 import org.aviatorlabs.ci.sdk.step.task.Task;
 import org.aviatorlabs.ci.sdk.step.task.config.*;
-import org.aviatorlabs.ci.sdk.step.task.config.*;
 import org.aviatorlabs.ci.sdk.variable.Variable;
 import org.junit.jupiter.api.Test;
 
