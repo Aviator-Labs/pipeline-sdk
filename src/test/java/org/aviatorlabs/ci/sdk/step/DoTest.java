@@ -11,10 +11,11 @@ import org.aviatorlabs.ci.sdk.Pipeline;
 import org.aviatorlabs.ci.sdk.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
+import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
+import org.aviatorlabs.ci.sdk.step.across.DynamicAcrossValue;
 import org.aviatorlabs.ci.sdk.step.task.InputMapping;
 import org.aviatorlabs.ci.sdk.step.task.OutputMapping;
 import org.aviatorlabs.ci.sdk.step.task.Task;
-import org.aviatorlabs.ci.sdk.step.task.config.*;
 import org.aviatorlabs.ci.sdk.step.task.config.*;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +58,7 @@ class DoTest {
         Pipeline pipeline = new Pipeline();
         Job job = new Job("job");
 
-        AcrossVariable variable = AcrossVariable.create("name").addValue("Kaladin").addValue("Jasnah");
+        AbstractAcrossValue variable = DynamicAcrossValue.create("name").addValue("Kaladin").addValue("Jasnah");
         Do doStep = Do.create().addAcrossVariable(variable);
 
         Command helloVariable = Command.createCommand("echo").addArg(String.format("Hello %s!", variable.getVariable()));
@@ -93,7 +94,7 @@ class DoTest {
         GitGet getDefinition = ciRepo.createGetDefinition();
         job.addStep(getDefinition);
 
-        AcrossVariable variable = AcrossVariable.create("pipeline").addValue("hello-world").addValue("time-triggered");
+        AbstractAcrossValue variable = DynamicAcrossValue.create("pipeline").addValue("hello-world").addValue("time-triggered");
 
         Do doStep = Do.create().addAcrossVariable(variable);
 
