@@ -241,7 +241,7 @@ class ExamplePipelinesTest {
         // Define Pipeline
         Pipeline pipeline = new Pipeline();
 
-        Resource every30Seconds = TimeResource.create("every-30s", new TimeConfig().setInterval("30s")).setIcon("clock-outline");
+        Resource every30Seconds = TimeResource.create("every-30s", TimeConfig.create().setInterval("30s")).setIcon("clock-outline");
         pipeline.addResource(every30Seconds);
 
         Job job = new Job("job").markPublic();
@@ -294,7 +294,7 @@ class ExamplePipelinesTest {
         // Define Pipeline
         Pipeline pipeline = new Pipeline();
 
-        Resource every30Seconds = TimeResource.create("every-30s", new TimeConfig().setInterval("30s")).setIcon("clock-outline");
+        Resource every30Seconds = TimeResource.create("every-30s", TimeConfig.create().setInterval("30s")).setIcon("clock-outline");
         pipeline.addResource(every30Seconds);
 
         AnonymousResource<RegistryImageConfig> busyBox = AnonymousResource.create("busybox");
