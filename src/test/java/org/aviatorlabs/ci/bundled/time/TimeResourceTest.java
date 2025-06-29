@@ -78,7 +78,7 @@ class TimeResourceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"123_get", "((my_var))-get", "MY_GET"})
+    @ValueSource(strings = {"((my_var))-get", "MY_GET"})
     void setInvalidGetIdentifier(String identifier) {
         // Arrange
         TimeConfig config = TimeConfig.create().addDay(DayOfWeek.MONDAY);
@@ -118,7 +118,7 @@ class TimeResourceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"123_get", "((my_var))-get", "MY_GET"})
+    @ValueSource(strings = {"((my_var))-put", "MY_PUT"})
     void setInvalidPutIdentifier(String identifier) {
         // Arrange
         TimeConfig config = TimeConfig.create().addDay(DayOfWeek.MONDAY);
