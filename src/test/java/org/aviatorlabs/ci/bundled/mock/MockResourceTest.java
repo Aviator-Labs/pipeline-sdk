@@ -59,7 +59,6 @@ class MockResourceTest {
         // Act
         MockGet get = resource.createGetDefinition("identifier");
 
-
         // Assert
         assertNotNull(get);
         assertEquals("identifier", get.getIdentifier());
