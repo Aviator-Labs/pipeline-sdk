@@ -5,6 +5,7 @@ import org.aviatorlabs.ci.sdk.resource.IResourceConfig;
 
 import java.net.URI;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class GitResourceConfig implements IResourceConfig {
@@ -12,10 +13,21 @@ public class GitResourceConfig implements IResourceConfig {
 
     private final String branch;
 
+    @SerializedName("private_key")
+    private String privateKey;
+
+    @SerializedName("private_key_user")
+    private String privateKeyUser;
+
+    @SerializedName("private_key_passphrase")
+    private String privateKeyPassphrase;
+
+    @SerializedName("forward_agent")
+    private String forwardAgent;
+
     private String username;
 
-    @SerializedName("password")
-    private String passwordVariable;
+    private String password;
 
     private Set<String> paths;
 
@@ -31,8 +43,19 @@ public class GitResourceConfig implements IResourceConfig {
     @SerializedName("tag_regex")
     private String tagRegex;
 
+    private TagBehaviour tagBehaviour;
+
     @SerializedName("fetch_tags")
     private Boolean fetchTags;
+
+    @SerializedName("submodule_credentials")
+    private Set<ISubModuleCredential> subModuleCredentials;
+
+    @SerializedName("git_config")
+    private Map<String, String> gitConfig;
+
+    @SerializedName("disable_ci_skip")
+    private Boolean disableCISkip;
 
     protected GitResourceConfig(URI uri, String branch) {
         this.uri = uri;
@@ -47,9 +70,9 @@ public class GitResourceConfig implements IResourceConfig {
         return new GitResourceConfig(URI.create(uri), branch);
     }
 
-    public GitResourceConfig setHttpsCredentials(String username, String passwordVariable) {
+    public GitResourceConfig setHttpsCredentials(String username, String password) {
         this.username = username;
-        this.passwordVariable = passwordVariable;
+        this.password = password;
 
         return this;
     }
