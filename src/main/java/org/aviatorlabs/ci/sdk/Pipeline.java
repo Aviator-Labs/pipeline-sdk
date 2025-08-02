@@ -73,7 +73,7 @@ public class Pipeline {
     /**
      * Adds a new Resource Type to the list of Pipeline Resource Types.
      * <p>
-     * Resource Types found in {@link org.aviatorlabs.ci.bundled} are included by default
+     * Resource Types found in {@link org.aviatorlabs.ci.resource} are included by default
      *
      * @param resourceType {@link ResourceType} to add to the pipeline
      * @return itself to support chaining

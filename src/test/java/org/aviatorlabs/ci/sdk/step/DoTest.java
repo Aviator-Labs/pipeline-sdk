@@ -2,11 +2,11 @@ package org.aviatorlabs.ci.sdk.step;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.aviatorlabs.ci.bundled.git.GitResource;
-import org.aviatorlabs.ci.bundled.git.GitResourceConfig;
-import org.aviatorlabs.ci.bundled.git.get.GitGet;
-import org.aviatorlabs.ci.bundled.mock.MockConfig;
-import org.aviatorlabs.ci.bundled.mock.MockResourceType;
+import org.aviatorlabs.ci.resource.git.GitResource;
+import org.aviatorlabs.ci.resource.git.GitResourceConfig;
+import org.aviatorlabs.ci.resource.git.get.GitGet;
+import org.aviatorlabs.ci.resource.mock.MockConfig;
+import org.aviatorlabs.ci.resource.mock.MockResourceType;
 import org.aviatorlabs.ci.sdk.Pipeline;
 import org.aviatorlabs.ci.sdk.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;

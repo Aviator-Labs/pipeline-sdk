@@ -1,7 +1,7 @@
 package org.aviatorlabs.ci.sdk.job;
 
-import org.aviatorlabs.ci.bundled.mock.MockConfig;
-import org.aviatorlabs.ci.bundled.mock.MockResource;
+import org.aviatorlabs.ci.resource.mock.MockConfig;
+import org.aviatorlabs.ci.resource.mock.MockResource;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
 import org.aviatorlabs.ci.sdk.step.task.Task;
 import org.aviatorlabs.ci.sdk.step.task.config.Command;
