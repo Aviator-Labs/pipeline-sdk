@@ -1,8 +1,8 @@
 package org.aviatorlabs.ci.sdk.resource;
 
 import com.google.gson.annotations.SerializedName;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageConfig;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageResourceType;
+import org.aviatorlabs.ci.resource.registry.RegistryImageConfig;
+import org.aviatorlabs.ci.resource.registry.RegistryImageResourceType;
 import org.aviatorlabs.ci.sdk.step.task.config.TaskConfig;
 import lombok.Getter;
 

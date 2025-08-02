@@ -1,8 +1,8 @@
 package org.aviatorlabs.ci.sdk.resource;
 
-import org.aviatorlabs.ci.bundled.mock.MockResourceType;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageConfig;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageResourceType;
+import org.aviatorlabs.ci.resource.mock.MockResourceType;
+import org.aviatorlabs.ci.resource.registry.RegistryImageConfig;
+import org.aviatorlabs.ci.resource.registry.RegistryImageResourceType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
