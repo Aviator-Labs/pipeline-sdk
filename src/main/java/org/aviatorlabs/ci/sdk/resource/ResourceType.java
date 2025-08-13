@@ -14,6 +14,9 @@ import java.util.Set;
  * Each resource in a pipeline has a type. The resource's type determines what versions are detected, the bits
  * that are fetched when the resource's {@link Get} step runs, and the side effect
  * that occurs when the resource's {@link Put} step runs.
+ *
+ * @param <T> Extension of a ResourceType
+ * @param <U> Extension of a ResourceConfig. Generally the RegistryResourceConfig
  */
 @Getter
 public abstract class ResourceType<T extends ResourceType<T, U>, U extends IResourceConfig> extends AbstractResource {
@@ -73,7 +76,7 @@ public abstract class ResourceType<T extends ResourceType<T, U>, U extends IReso
     }
 
     /**
-     * @return <T> The instance of self
+     * @return The instance of self
      */
     protected abstract T getSelf();
 

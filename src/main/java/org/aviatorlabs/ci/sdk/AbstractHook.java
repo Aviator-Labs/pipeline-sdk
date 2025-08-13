@@ -20,7 +20,7 @@ public abstract class AbstractHook<T> {
     private IStep onSuccess;
 
     /**
-     * @return <T> The instance of self
+     * @return The instance of self
      */
     protected abstract T getSelf();
 

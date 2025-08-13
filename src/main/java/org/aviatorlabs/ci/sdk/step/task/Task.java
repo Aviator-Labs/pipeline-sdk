@@ -197,11 +197,11 @@ public class Task extends AbstractAcrossStep<Task> implements IStep {
      * or any local network resources that aren't also inside the container.
      * <p>
      * For macOS and Windows this field has no effect since workloads on those machines are not containerized.
-     *
-     * @return Self
-     * @implNote This setting is only supported by the containerd runtime on Linux. For other runtimes this setting
+     * <p>
+     * This setting is only supported by the containerd runtime on Linux. For other runtimes this setting
      * has no effect on container networking. Please contact your Concourse operator to find out what runtime your
      * Concourse cluster is using.
+     * @return Self
      */
     public Task markHermetic() {
         this.isHermetic = true;

@@ -49,3 +49,5 @@ buildNumber.properties
 .classpath
 
 /javadoc/
+
+settings.xml

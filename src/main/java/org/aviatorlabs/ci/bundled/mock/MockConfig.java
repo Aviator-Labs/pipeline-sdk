@@ -3,11 +3,11 @@ package org.aviatorlabs.ci.bundled.mock;
 import com.google.gson.*;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import lombok.Getter;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
 import org.aviatorlabs.ci.sdk.resource.IResourceConfig;
 import org.aviatorlabs.ci.sdk.resource.ResourceType;
 import org.aviatorlabs.ci.sdk.util.Validator;
-import lombok.Getter;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -141,11 +141,10 @@ public class MockConfig implements IResourceConfig {
     }
 
     /**
-     * Sets the check delay.
+     * Sets the check delay. Check Delay must conform to {@link Validator#validateDuration(String)}
      *
      * @param checkDelay A valid check delay
      * @return self
-     * @implNote Check Delay must conform to {@link Validator#validateDuration(String)}
      */
     public MockConfig setCheckDelay(String checkDelay) {
         Validator.validateDuration(checkDelay);

@@ -92,11 +92,11 @@ public class TaskConfig {
 
     /**
      * Specify the rootfs uri of the container, as interpreted by your worker's Garden backend
-     *
+     * <p>
+     * {@link TaskConfig#resource} is the preferred way to specify base image. You should only use this
+     * if you have no other option, and you really know what you're doing.
      * @param uri A string specifying the rootfs uri of the container, as interpreted by your worker's Garden backend.
      * @return Self
-     * @implNote {@link TaskConfig#resource} is the preferred way to specify base image. You should only use this
-     * if you have no other option, and you really know what you're doing.
      */
     public TaskConfig setRootFSUri(String uri) {
         this.rootfsURI = uri;
