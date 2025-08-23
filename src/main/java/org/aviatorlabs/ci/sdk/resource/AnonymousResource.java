@@ -1,8 +1,6 @@
 package org.aviatorlabs.ci.sdk.resource;
 
 import com.google.gson.annotations.SerializedName;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageConfig;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageResourceType;
 import org.aviatorlabs.ci.sdk.step.task.config.TaskConfig;
 import lombok.Getter;
 
@@ -25,42 +23,9 @@ public class AnonymousResource<T extends IResourceConfig> {
      *               Resource Types array.
      * @param config Configuration for the Resource Type
      */
-    private AnonymousResource(ResourceType type, T config) {
+    protected AnonymousResource(ResourceType type, T config) {
         this.resourceType = type.getName();
         this.config = config;
-    }
-
-    /**
-     * Creates an Anonymous Resource of type Registry Image given the repository.
-     *
-     * @param repository Repository of the Registry Image
-     * @return An Anonymous Resource of type Registry Image targeting the specified repository
-     */
-    public static AnonymousResource<RegistryImageConfig> create(String repository) {
-        return AnonymousResource.create(repository, null);
-    }
-
-    /**
-     * Creates an Anonymous Resource of type Registry Image given the repository and tag.
-     *
-     * @param repository Repository of the Registry Image
-     * @param tag        Tag of the Registry Image
-     * @return An Anonymous Resource of type Registry Image targeting the specified repository and tag
-     */
-    public static AnonymousResource<RegistryImageConfig> create(String repository, String tag) {
-        return AnonymousResource.create(RegistryImageConfig.create(repository, tag));
-    }
-
-    /**
-     * Creates an Anonymous Resource of type Registry Image given the Registry Image Config.
-     * <p>
-     * Used to have greater control of the configuration of the Registry Image Anonymous Resource.
-     *
-     * @param config Registry Image Configuration
-     * @return An Anonymous Resource of type Registry Image targeting the Registry Image Configuration
-     */
-    public static AnonymousResource<RegistryImageConfig> create(RegistryImageConfig config) {
-        return AnonymousResource.create(RegistryImageResourceType.create(), config);
     }
 
     /**
