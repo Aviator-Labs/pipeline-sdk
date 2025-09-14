@@ -1,4 +1,4 @@
-package org.aviatorlabs.ci.sdk;
+package org.aviatorlabs.ci.test;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

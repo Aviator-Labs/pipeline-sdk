@@ -2,14 +2,14 @@ package org.aviatorlabs.ci.sdk.step;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.aviatorlabs.ci.bundled.git.GitResource;
-import org.aviatorlabs.ci.bundled.git.GitResourceConfig;
-import org.aviatorlabs.ci.bundled.git.get.GitGet;
 import org.aviatorlabs.ci.sdk.Pipeline;
-import org.aviatorlabs.ci.sdk.TestUtils;
+import org.aviatorlabs.ci.test.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
 import org.aviatorlabs.ci.sdk.step.across.DynamicAcrossValue;
+import org.aviatorlabs.ci.test.git.GitConfig;
+import org.aviatorlabs.ci.test.git.GitResource;
+import org.aviatorlabs.ci.test.git.get.GitGet;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +20,7 @@ class SetPipelineTest {
     void setPipelineAcross() {
         // Arrange
         Pipeline pipeline = new Pipeline();
-        GitResource ci = GitResource.create("ci", GitResourceConfig.create("https://github.com/concourse/examples.git"));
+        GitResource ci = GitResource.create("ci", GitConfig.create("https://github.com/concourse/examples.git"));
         pipeline.addResource(ci);
 
         Job job = new Job("job");

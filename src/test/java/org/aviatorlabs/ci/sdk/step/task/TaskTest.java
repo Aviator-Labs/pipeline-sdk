@@ -3,15 +3,7 @@ package org.aviatorlabs.ci.sdk.step.task;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.aviatorlabs.ci.bundled.git.GitResource;
-import org.aviatorlabs.ci.bundled.git.GitResourceConfig;
-import org.aviatorlabs.ci.bundled.git.get.GitGet;
-import org.aviatorlabs.ci.bundled.mock.MockConfig;
-import org.aviatorlabs.ci.bundled.mock.MockResourceType;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageConfig;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageResource;
 import org.aviatorlabs.ci.sdk.Pipeline;
-import org.aviatorlabs.ci.sdk.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
 import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
@@ -20,15 +12,36 @@ import org.aviatorlabs.ci.sdk.step.task.config.Command;
 import org.aviatorlabs.ci.sdk.step.task.config.Output;
 import org.aviatorlabs.ci.sdk.step.task.config.Platform;
 import org.aviatorlabs.ci.sdk.step.task.config.TaskConfig;
+import org.aviatorlabs.ci.test.TestUtils;
+import org.aviatorlabs.ci.test.git.GitConfig;
+import org.aviatorlabs.ci.test.git.GitResource;
+import org.aviatorlabs.ci.test.git.get.GitGet;
+import org.aviatorlabs.ci.test.mock.MockConfig;
+import org.aviatorlabs.ci.test.mock.MockType;
+import org.aviatorlabs.ci.test.registry.RegistryImageConfig;
+import org.aviatorlabs.ci.test.registry.RegistryImageResource;
+import org.aviatorlabs.ci.test.registry.RegistryImageType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
+
+    AnonymousResource<RegistryImageConfig> resource;
+
+    @BeforeEach
+    void setUp() {
+        RegistryImageType type = RegistryImageType.create();
+        RegistryImageConfig resourceConfig = RegistryImageConfig.create("busybox");
+
+        resource = AnonymousResource.create(type, resourceConfig);
+    }
+
     @Test
     void simpleTask() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
 
         // Act
         Task task = Task.create("task", config);
@@ -45,7 +58,7 @@ class TaskTest {
     @Test
     void taskWithYAMLTemplate() {
         // Arrange
-        GitResourceConfig gitConfig = GitResourceConfig.create("https://git.my_domain.com/repo.git");
+        GitConfig gitConfig = GitConfig.create("https://git.my_domain.com/repo.git");
         GitResource resource = GitResource.create("repo", gitConfig);
         GitGet get = resource.createGetDefinition();
 
@@ -61,7 +74,7 @@ class TaskTest {
     @Test
     void taskWithYAMLTemplateWithLeadingSlash() {
         // Arrange
-        GitResourceConfig gitConfig = GitResourceConfig.create("https://git.my_domain.com/repo.git");
+        GitConfig gitConfig = GitConfig.create("https://git.my_domain.com/repo.git");
         GitResource resource = GitResource.create("repo", gitConfig);
         GitGet get = resource.createGetDefinition();
 
@@ -77,7 +90,7 @@ class TaskTest {
     @Test
     void taskWithNullPath() {
         // Arrange
-        GitResourceConfig gitConfig = GitResourceConfig.create("https://git.my_domain.com/repo.git");
+        GitConfig gitConfig = GitConfig.create("https://git.my_domain.com/repo.git");
         GitResource resource = GitResource.create("repo", gitConfig);
         GitGet get = resource.createGetDefinition();
 
@@ -104,7 +117,7 @@ class TaskTest {
     @Test
     void markPrivileged() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
         Task task = Task.create("task", config);
 
         // Act
@@ -117,7 +130,7 @@ class TaskTest {
     @Test
     void markHermetic() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
         Task task = Task.create("task", config);
 
         // Act
@@ -130,7 +143,7 @@ class TaskTest {
     @Test
     void addUnstructuredVariables() {
         // Arrange
-        GitResourceConfig gitConfig = GitResourceConfig.create("https://git.my_domain.com/repo.git");
+        GitConfig gitConfig = GitConfig.create("https://git.my_domain.com/repo.git");
         GitResource resource = GitResource.create("repo", gitConfig);
         GitGet get = resource.createGetDefinition();
         Task task = Task.create("task", get, "/pipeline/templates/my_second_job.yml");
@@ -159,7 +172,7 @@ class TaskTest {
     @Test
     void setCPULimit() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
         Task task = Task.create("task", config);
 
         // Act
@@ -173,7 +186,7 @@ class TaskTest {
     @Test
     void setMemoryLimits() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
         Task task = Task.create("task", config);
 
         // Act
@@ -187,7 +200,7 @@ class TaskTest {
     @Test
     void chainContainerLimits() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
         Task task = Task.create("task", config);
 
         // Act
@@ -201,7 +214,7 @@ class TaskTest {
     @Test
     void addEnvVarParameters() {
         // Arrange
-        TaskConfig config = TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("sh").addArg("hello"));
+        TaskConfig config = TaskConfig.create(Platform.LINUX, resource, Command.createCommand("sh").addArg("hello"));
         Task task = Task.create("task", config);
 
         // Act
@@ -215,10 +228,10 @@ class TaskTest {
     @Test
     void addInputMappingFromGet() {
         // Arrange
-        GitResource resource = GitResource.create("repo", GitResourceConfig.create("https://git.website.com/group/repo.git"));
-        GitGet get = resource.createGetDefinition();
+        GitResource gitResource = GitResource.create("repo", GitConfig.create("https://git.website.com/group/repo.git"));
+        GitGet get = gitResource.createGetDefinition();
 
-        Task task = Task.create("task", TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("echo").addArg("Hello, world!")));
+        Task task = Task.create("task", TaskConfig.create(Platform.LINUX, resource, Command.createCommand("echo").addArg("Hello, world!")));
 
         // Act
         InputMapping mapping = task.addInputMapping(get, "main");
@@ -237,7 +250,7 @@ class TaskTest {
         // Arrange
         Output output = Output.create("repo");
 
-        Task task = Task.create("task", TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("echo").addArg("Hello, world!")));
+        Task task = Task.create("task", TaskConfig.create(Platform.LINUX, resource, Command.createCommand("echo").addArg("Hello, world!")));
 
         // Act
         InputMapping mapping = task.addInputMapping(output, "main");
@@ -256,7 +269,7 @@ class TaskTest {
         // Arrange
         Output output = Output.create("repo");
 
-        Task task = Task.create("task", TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("echo").addArg("Hello, world!")));
+        Task task = Task.create("task", TaskConfig.create(Platform.LINUX, resource, Command.createCommand("echo").addArg("Hello, world!")));
 
         // Act
         OutputMapping mapping = task.addOutputMapping(output, "main");
@@ -278,7 +291,7 @@ class TaskTest {
 
         AbstractAcrossValue acrossVariable = DynamicAcrossValue.create("some-text").addValue("hello-world").addValue("hello-concourse");
 
-        AnonymousResource<MockConfig> resource = AnonymousResource.create(MockResourceType.create(), MockConfig.create().mirrorSelf());
+        AnonymousResource<MockConfig> resource = AnonymousResource.create(MockType.create(), MockConfig.create().mirrorSelf());
         TaskConfig config = TaskConfig.create(resource, Command.createCommand("echo").addArg(acrossVariable.getVariable()));
         Task task = Task.createAcrossTask(String.format("running-%s", acrossVariable.getVariable()), config, acrossVariable);
 

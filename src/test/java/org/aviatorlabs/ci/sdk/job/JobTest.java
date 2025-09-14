@@ -1,12 +1,13 @@
 package org.aviatorlabs.ci.sdk.job;
 
-import org.aviatorlabs.ci.bundled.mock.MockConfig;
-import org.aviatorlabs.ci.bundled.mock.MockResource;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
+import org.aviatorlabs.ci.sdk.step.SetPipeline;
 import org.aviatorlabs.ci.sdk.step.task.Task;
 import org.aviatorlabs.ci.sdk.step.task.config.Command;
 import org.aviatorlabs.ci.sdk.step.task.config.Platform;
 import org.aviatorlabs.ci.sdk.step.task.config.TaskConfig;
+import org.aviatorlabs.ci.test.registry.RegistryImageConfig;
+import org.aviatorlabs.ci.test.registry.RegistryImageType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -234,10 +235,10 @@ class JobTest {
     void otherObjIsNotEqual() {
         // Arrange
         Job job = new Job("job");
-        MockResource resource = MockResource.create("mock", MockConfig.create());
+        SetPipeline pipeline = SetPipeline.create("name", "path");
 
         // Act
-        boolean equality = job.equals(resource);
+        boolean equality = job.equals(pipeline);
 
         // Assert
         assertFalse(equality);
@@ -309,7 +310,11 @@ class JobTest {
     void addStep() {
         // Arrange
         Job job = new Job("name");
-        Task task = Task.create("my_task", TaskConfig.create(Platform.LINUX, AnonymousResource.create("busybox"), Command.createCommand("echo").addArg("Hello, World!")));
+
+        RegistryImageType type = RegistryImageType.create();
+        RegistryImageConfig resourceConfig = RegistryImageConfig.create("busybox");
+
+        Task task = Task.create("my_task", TaskConfig.create(Platform.LINUX, AnonymousResource.create(type, resourceConfig), Command.createCommand("echo").addArg("Hello, World!")));
 
         // Act
         job.addStep(task);
