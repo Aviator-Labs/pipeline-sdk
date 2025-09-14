@@ -6,7 +6,7 @@
 
     <groupId>org.aviatorlabs.ci</groupId>
     <artifactId>pipeline-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <name>Concourse Pipeline SDK</name>
     <description>
