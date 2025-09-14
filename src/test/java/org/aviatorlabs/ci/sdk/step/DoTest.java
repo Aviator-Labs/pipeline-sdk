@@ -2,13 +2,8 @@ package org.aviatorlabs.ci.sdk.step;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.aviatorlabs.ci.bundled.git.GitResource;
-import org.aviatorlabs.ci.bundled.git.GitResourceConfig;
-import org.aviatorlabs.ci.bundled.git.get.GitGet;
-import org.aviatorlabs.ci.bundled.mock.MockConfig;
-import org.aviatorlabs.ci.bundled.mock.MockResourceType;
 import org.aviatorlabs.ci.sdk.Pipeline;
-import org.aviatorlabs.ci.sdk.TestUtils;
+import org.aviatorlabs.ci.test.TestUtils;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.resource.AnonymousResource;
 import org.aviatorlabs.ci.sdk.step.across.AbstractAcrossValue;
@@ -17,6 +12,11 @@ import org.aviatorlabs.ci.sdk.step.task.InputMapping;
 import org.aviatorlabs.ci.sdk.step.task.OutputMapping;
 import org.aviatorlabs.ci.sdk.step.task.Task;
 import org.aviatorlabs.ci.sdk.step.task.config.*;
+import org.aviatorlabs.ci.test.git.GitConfig;
+import org.aviatorlabs.ci.test.git.GitResource;
+import org.aviatorlabs.ci.test.git.get.GitGet;
+import org.aviatorlabs.ci.test.mock.MockConfig;
+import org.aviatorlabs.ci.test.mock.MockType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,11 +62,11 @@ class DoTest {
         Do doStep = Do.create().addAcrossVariable(variable);
 
         Command helloVariable = Command.createCommand("echo").addArg(String.format("Hello %s!", variable.getVariable()));
-        TaskConfig sayHello = TaskConfig.create(Platform.LINUX, AnonymousResource.create(MockResourceType.create(), MockConfig.create().mirrorSelf()), helloVariable);
+        TaskConfig sayHello = TaskConfig.create(Platform.LINUX, AnonymousResource.create(MockType.create(), MockConfig.create().mirrorSelf()), helloVariable);
         Task hello = Task.create("saying-hello", sayHello);
 
         Command byeVariable = Command.createCommand("echo").addArg(String.format("Bye %s!", variable.getVariable()));
-        TaskConfig sayBye = TaskConfig.create(Platform.LINUX, AnonymousResource.create(MockResourceType.create(), MockConfig.create().mirrorSelf()), byeVariable);
+        TaskConfig sayBye = TaskConfig.create(Platform.LINUX, AnonymousResource.create(MockType.create(), MockConfig.create().mirrorSelf()), byeVariable);
         Task bye = Task.create("saying-bye", sayBye);
 
         // Act
@@ -87,7 +87,7 @@ class DoTest {
     void inputOutputAcross() {
         // Arrange
         Pipeline pipeline = new Pipeline();
-        GitResource ciRepo = GitResource.create("ci", GitResourceConfig.create("https://github.com/concourse/examples.git"));
+        GitResource ciRepo = GitResource.create("ci", GitConfig.create("https://github.com/concourse/examples.git"));
         pipeline.addResource(ciRepo);
 
         Job job = new Job("job");
@@ -98,7 +98,7 @@ class DoTest {
 
         Do doStep = Do.create().addAcrossVariable(variable);
 
-        AnonymousResource<MockConfig> mockResource = AnonymousResource.create(MockResourceType.create(), MockConfig.create().mirrorSelf());
+        AnonymousResource<MockConfig> mockResource = AnonymousResource.create(MockType.create(), MockConfig.create().mirrorSelf());
 
         //   Task Definition - Running Task
         Command runningCommand = Command.createCommand("cat").addArg(String.format("%1$s/pipelines/%1$s.yml", variable.getVariable()));

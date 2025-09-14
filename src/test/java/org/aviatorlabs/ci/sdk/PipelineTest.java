@@ -3,14 +3,11 @@ package org.aviatorlabs.ci.sdk;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.aviatorlabs.ci.bundled.git.GitResource;
-import org.aviatorlabs.ci.bundled.git.GitResourceConfig;
-import org.aviatorlabs.ci.bundled.git.GitResourceType;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageConfig;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageResource;
-import org.aviatorlabs.ci.bundled.registry.RegistryImageResourceType;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.varsource.ssm.SSMVarSource;
+import org.aviatorlabs.ci.test.registry.RegistryImageConfig;
+import org.aviatorlabs.ci.test.registry.RegistryImageResource;
+import org.aviatorlabs.ci.test.registry.RegistryImageType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,11 +70,12 @@ class PipelineTest {
     void resources() {
         // Arrange
         RegistryImageResource busybox = RegistryImageResource.create("busybox", RegistryImageConfig.create("busybox"));
-        GitResource repo = GitResource.create("repo", GitResourceConfig.create("https://git.company.com/group/project.git"));
+        RegistryImageResource alpine = RegistryImageResource.create("alpine", RegistryImageConfig.create("alpine"));
+
         Pipeline pipeline = new Pipeline();
 
         // Act
-        pipeline.addResource(busybox).addResource(repo);
+        pipeline.addResource(busybox).addResource(alpine);
 
         // Assert
         assertFalse(pipeline.getResources().isEmpty());
@@ -91,12 +89,13 @@ class PipelineTest {
     @Test
     void resourceTypes() {
         // Arrange
-        RegistryImageResourceType registry = RegistryImageResourceType.create();
-        GitResourceType git = GitResourceType.create();
+        RegistryImageType registry = RegistryImageType.create();
+        RegistryImageType registryNew = RegistryImageType.create("new-registry-image");
+
         Pipeline pipeline = new Pipeline();
 
         // Act
-        pipeline.addResourceType(registry).addResourceType(git);
+        pipeline.addResourceType(registry).addResourceType(registryNew);
 
         // Assert
         assertFalse(pipeline.getResourceTypes().isEmpty());
