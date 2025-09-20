@@ -8,7 +8,15 @@ import org.aviatorlabs.ci.sdk.varsource.ssm.SSMVarSource;
 import org.aviatorlabs.ci.test.registry.RegistryImageConfig;
 import org.aviatorlabs.ci.test.registry.RegistryImageResource;
 import org.aviatorlabs.ci.test.registry.RegistryImageType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -141,5 +149,24 @@ class PipelineTest {
         // Assert
         assertEquals("https://static.concourse-ci.org/assets/my_image.jpg", pipeline.getDisplayConfig().getBackgroundImage());
         assertEquals("opacity(40%) grayscale(90%)", pipeline.getDisplayConfig().getBackgroundFilter());
+    }
+
+    @Test
+    @DisplayName("Validate File creation")
+    void renderPipelineToFile() throws URISyntaxException, IOException {
+        // Arrange
+        Pipeline pipeline = new Pipeline();
+        pipeline.setBackgroundImage("https://static.concourse-ci.org/assets/my_image.jpg")
+                .setBackgroundFilter("opacity(40%) grayscale(90%)");
+
+        // Act
+        Path parent = Paths.get(Objects.requireNonNull(PipelineTest.class.getResource("/")).toURI()).getParent();
+        File file = new File(parent.toFile(), "generated-pipelines/%s".formatted("generated.json"));
+
+        pipeline.render(file.getAbsolutePath());
+
+        // Assert
+        assertTrue(file.exists());
+        assertFalse(file.isDirectory());
     }
 }
