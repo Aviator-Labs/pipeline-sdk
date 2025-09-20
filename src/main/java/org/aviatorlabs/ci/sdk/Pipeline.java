@@ -5,12 +5,16 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.SerializedName;
+import lombok.Getter;
 import org.aviatorlabs.ci.sdk.job.Job;
 import org.aviatorlabs.ci.sdk.resource.Resource;
 import org.aviatorlabs.ci.sdk.resource.ResourceType;
 import org.aviatorlabs.ci.sdk.varsource.AbstractVarSource;
-import lombok.Getter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,14 +29,26 @@ public class Pipeline {
     private Set<Job> jobs;
     private Set<Resource> resources;
     @SerializedName("resource_types")
-    private Set<ResourceType> resourceTypes;
+    private Set<ResourceType<?, ?>> resourceTypes;
 
     @SerializedName("var_sources")
-    private Set<AbstractVarSource> varSources;
+    private Set<AbstractVarSource<?>> varSources;
 
     private Set<Group> groups;
     @SerializedName("display_config")
     private DisplayConfig displayConfig;
+
+    private static Gson configureSerializer() {
+        JsonSerializer<ISerializableEnum> enumJsonSerializer = (src, typeOfSrc, context) -> {
+            return new JsonPrimitive(src.getDisplayName());
+        };
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeHierarchyAdapter(ISerializableEnum.class, enumJsonSerializer)
+                .create();
+        return gson;
+    }
 
     /**
      * Adds a Job to the list of Pipeline Jobs. Each Job must have a unique name.
@@ -76,7 +92,7 @@ public class Pipeline {
      * @param resourceType {@link ResourceType} to add to the pipeline
      * @return itself to support chaining
      */
-    public Pipeline addResourceType(ResourceType resourceType) {
+    public Pipeline addResourceType(ResourceType<?, ?> resourceType) {
         if (this.resourceTypes == null) {
             this.resourceTypes = new LinkedHashSet<>();
         }
@@ -86,7 +102,7 @@ public class Pipeline {
         return this;
     }
 
-    public Pipeline addVarSource(AbstractVarSource varSource) {
+    public Pipeline addVarSource(AbstractVarSource<?> varSource) {
         if (this.varSources == null) {
             this.varSources = new LinkedHashSet<>();
         }
@@ -142,15 +158,33 @@ public class Pipeline {
      * @return rendered JSON Pipeline
      */
     public String render() {
-        JsonSerializer<ISerializableEnum> enumJsonSerializer = (src, typeOfSrc, context) -> {
-            return new JsonPrimitive(src.getDisplayName());
-        };
-
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeHierarchyAdapter(ISerializableEnum.class, enumJsonSerializer)
-                .create();
+        Gson gson = configureSerializer();
 
         return gson.toJson(this);
+    }
+
+    /**
+     * Renders the pipeline to a JSON File
+     *
+     * @param outputFile The file path for the generated pipeline
+     * @throws IOException If the named file exists but is a directory rather than a regular file,
+     *                     does not exist but cannot be created, or cannot be opened for any other reason
+     */
+    public void render(String outputFile) throws IOException {
+        Gson gson = configureSerializer();
+
+        File file = new File(outputFile);
+        File parentDirectory = file.getParentFile();
+
+        if (parentDirectory != null && !parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
+
+        Writer writer = new FileWriter(outputFile);
+
+        gson.toJson(this, writer);
+
+        writer.flush();
+        writer.close();
     }
 }
